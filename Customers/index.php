@@ -18,14 +18,11 @@ include_once "../Includes/header.php";
 
     <table class="table table-bordered table-striped table-hover text-center">
         <thead class="table-dark">
-            <tr>
+            <tr class="fs-5">
                 <th>ID</th>
                 <th>Full Name</th>
-                <th>Address</th>
-                <th>Phone</th>
                 <th>Age</th>
-                <th>Gender</th>
-                <th>Password</th>
+                <th colspan="3" class = "table-dark">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -34,11 +31,10 @@ include_once "../Includes/header.php";
                 echo "<tr>
                         <td>{$customer['ID']}</td>
                         <td>{$customer['fullName']}</td>
-                        <td>{$customer['address']}</td>
-                        <td>{$customer['phone']}</td>
                         <td>{$customer['age']}</td>
-                        <td>{$customer['gender']}</td>
-                        <td>{$customer['password']}</td>
+                        <td><a class='btn btn-dark' href='view.php?id={$customer['ID']}'>View</a></td>
+                        <td><a class='btn btn-secondary' href='edit.php?id={$customer['ID']}'>Edit</a></td>
+                        <td><a class='btn btn-danger' href='delete.php?id={$customer['ID']}'>Delete</a></td>
                       </tr>";
             }
             ?>
