@@ -9,9 +9,6 @@ if (!$customers) {
 include_once "../Includes/header.php";
 ?>
 
-
-<body>
-
 <div class="container mt-5">
 
     <h1 class="mb-4 text-center">Customers Table</h1>
