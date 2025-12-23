@@ -1,17 +1,28 @@
 <?php
 include_once "../Includes/vars.php";
 
+
 $customers = mysqli_query($connection, "SELECT * FROM customer");
 
 if (!$customers) {
     die("Query failed: " . mysqli_error($connection));
 }
 include_once "../Includes/header.php";
+session_start();
+
+if (isset($_SESSION['success'])) {
+    echo '
+    <div class="alert alert-success alert-dismissible fade show text-center mt-3" role="alert">
+        ' . $_SESSION['success'] . '
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>';
+    
+    unset($_SESSION['success']); // remove after showing once
+}
 ?>
 
 <div class="container mt-5">
 
-    <!-- Heading + Add Button Row -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="mb-0">Customers Table</h1>
         <a href="add.php" class="btn btn-dark d-flex align-items-center gap-2">
@@ -19,7 +30,6 @@ include_once "../Includes/header.php";
         </a>
     </div>
 
-    <!-- Table -->
     <table class="table table-bordered table-striped table-hover text-center">
         <thead class="table-dark">
             <tr class="fs-5">
