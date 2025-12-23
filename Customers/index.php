@@ -11,8 +11,15 @@ include_once "../Includes/header.php";
 
 <div class="container mt-5">
 
-    <h1 class="mb-4 text-center">Customers Table</h1>
+    <!-- Heading + Add Button Row -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Customers Table</h1>
+        <a href="add.php" class="btn btn-dark d-flex align-items-center gap-2">
+            <i class="bi bi-plus-lg"></i> Add New
+        </a>
+    </div>
 
+    <!-- Table -->
     <table class="table table-bordered table-striped table-hover text-center">
         <thead class="table-dark">
             <tr class="fs-5">
@@ -32,13 +39,14 @@ include_once "../Includes/header.php";
                         <td><a class='btn btn-dark' href='view.php?id={$customer['ID']}'>View</a></td>
                         <td><a class='btn btn-secondary' href='edit.php?id={$customer['ID']}'>Edit</a></td>
                         <td><a class='btn btn-danger' href='delete.php?id={$customer['ID']}' onclick='return confirm(\"Are you sure you want to delete this customer?\")'>Delete</a></td>
-</tr>";
+                      </tr>";
             }
             ?>
         </tbody>
     </table>
 
 </div>
+
 
 </body>
 
