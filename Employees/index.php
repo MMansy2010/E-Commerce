@@ -1,17 +1,34 @@
 <?php
 include_once "../Includes/vars.php";
 
+
 $customers = mysqli_query($connection, "SELECT * FROM customer");
 
 if (!$customers) {
     die("Query failed: " . mysqli_error($connection));
 }
 include_once "../Includes/header.php";
+session_start();
+
+if (isset($_SESSION['success'])) {
+    echo '
+    <div class="alert alert-success alert-dismissible fade show text-center mt-3" role="alert">
+        ' . $_SESSION['success'] . '
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>';
+    
+    unset($_SESSION['success']); // remove after showing once
+}
 ?>
 
 <div class="container mt-5">
 
-    <h1 class="mb-4 text-center">Customers Table</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Customers Table</h1>
+        <a href="add.php" class="btn btn-dark d-flex align-items-center gap-2">
+            <i class="bi bi-plus-lg"></i> Add New
+        </a>
+    </div>
 
     <table class="table table-bordered table-striped table-hover text-center">
         <thead class="table-dark">
@@ -32,13 +49,14 @@ include_once "../Includes/header.php";
                         <td><a class='btn btn-dark' href='view.php?id={$customer['ID']}'>View</a></td>
                         <td><a class='btn btn-secondary' href='edit.php?id={$customer['ID']}'>Edit</a></td>
                         <td><a class='btn btn-danger' href='delete.php?id={$customer['ID']}' onclick='return confirm(\"Are you sure you want to delete this customer?\")'>Delete</a></td>
-</tr>";
+                      </tr>";
             }
             ?>
         </tbody>
     </table>
 
 </div>
+
 
 </body>
 

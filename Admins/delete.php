@@ -1,12 +1,16 @@
 <?php
 include_once "../Includes/vars.php";
+session_start();
 
 if (isset($_GET['id'])) {
-    $customerId = intval($_GET['id']);
+    $adminId = intval($_GET['id']);
 
-    $deleteQuery = "DELETE FROM customer WHERE ID = $customerId";
+    $deleteQuery = "DELETE FROM admins WHERE ID = $adminId";
 
     if (mysqli_query($connection, $deleteQuery)) {
+        // set flash message
+        $_SESSION['success'] = "Admin deleted successfully.";
+
         header("Location: index.php");
         exit();
     } else {

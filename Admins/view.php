@@ -3,7 +3,7 @@ include_once "../Includes/vars.php";
 include_once "../Includes/header.php";
 
 $customerId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$customerQuery = mysqli_query($connection, "SELECT * FROM customer WHERE ID = $customerId");
+$customerQuery = mysqli_query($connection, "SELECT * FROM admins WHERE ID = $customerId");
 $customer = mysqli_fetch_assoc($customerQuery);
 ?>
 <style>
@@ -67,12 +67,10 @@ $customer = mysqli_fetch_assoc($customerQuery);
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card cool-card" style="max-width: 420px; width: 100%;">
 
-        <!-- Header -->
         <div class="card-header text-center fw-semibold py-3">
-            Name : <?= $customer['fullName']; ?>
+            Email : <?= $customer['Email']; ?>
         </div>
 
-        <!-- Body -->
         <div class="card-body px-4">
 
             <div class="info-row">
@@ -81,28 +79,13 @@ $customer = mysqli_fetch_assoc($customerQuery);
             </div>
 
             <div class="info-row">
-                <span class="label">Name</span>
-                <span class="value"><?= $customer['fullName']; ?></span>
+                <span class="label">Email</span>
+                <span class="value"><?= $customer['Email']; ?></span>
             </div>
 
             <div class="info-row">
-                <span class="label">Age</span>
-                <span class="value"><?= $customer['age']; ?></span>
-            </div>
-
-            <div class="info-row">
-                <span class="label">Gender</span>
-                <span class="value"><?= $customer['gender']; ?></span>
-            </div>
-
-            <div class="info-row">
-                <span class="label">Address</span>
-                <span class="value"><?= $customer['address']; ?></span>
-            </div>
-
-            <div class="info-row">
-                <span class="label">Phone</span>
-                <span class="value"><?= $customer['phone']; ?></span>
+                <span class="label">EmployeeID</span>
+                <span class="value"><?= $customer['employeeId']; ?></span>
             </div>
 
             <div class="info-row">
