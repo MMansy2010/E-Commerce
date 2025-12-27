@@ -17,7 +17,7 @@ if (isset($_SESSION['success'])) {
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>';
     
-    unset($_SESSION['success']); // remove after showing once
+    unset($_SESSION['success']);
 }
 ?>
 

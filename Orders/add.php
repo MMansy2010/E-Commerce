@@ -18,7 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ";
 
     if (mysqli_query($connection, $updateQuery)) {
-        echo "<div class='alert alert-success text-center'>Customer added successfully.</div>";
+        echo '
+    <div class="alert alert-success alert-dismissible fade show text-center mt-3" role="alert">
+        Order added successfully.
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>';
     } else {
         echo "<div class='alert alert-danger text-center'>Error: " . mysqli_error($connection) . "</div>";
     }
