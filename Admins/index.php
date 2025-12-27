@@ -48,7 +48,7 @@ if (isset($_SESSION['success'])) {
                         <td>{$customer['employeeId']}</td>
                         <td><a class='btn btn-dark' href='view.php?id={$customer['ID']}'>View</a></td>
                         <td><a class='btn btn-secondary' href='edit.php?id={$customer['ID']}'>Edit</a></td>
-                        <td><a class='btn btn-danger' href='delete.php?id={$customer['ID']}' onclick='return confirm(\"Are you sure you want to delete this customer?\")'>Delete</a></td>
+                        <td><a class='btn btn-danger' href='delete.php?id={$customer['ID']}' onclick='return confirm(\"Are you sure you want to delete this admin?\")'>Delete</a></td>
                       </tr>";
             }
             ?>

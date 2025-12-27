@@ -5,21 +5,15 @@ include_once "../Includes/header.php";
 $customerId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $fullName = $_POST['fullName'];
-    $age = intval($_POST['age']);
-    $gender = $_POST['gender'];
-    $address = $_POST['address'];
-    $phone = $_POST['phone'];
-    $password = $_POST['password'];
+    $Name = $_POST['Name'];
+    $departmentId = intval($_POST['departmentId']);
+    $Salary = intval($_POST['Salary']);
 
     $updateQuery = "
-        UPDATE customer SET
-            fullName = '$fullName',
-            age = $age,
-            gender = '$gender',
-            address = '$address',
-            phone = '$phone',
-            password = '$password'
+        UPDATE employees SET
+            Name = '$Name',
+            departmentId = $departmentId,
+            Salary = $Salary
         WHERE ID = $customerId
     ";
 
@@ -34,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$customerQuery = mysqli_query($connection, "SELECT * FROM customer WHERE ID = $customerId");
+$customerQuery = mysqli_query($connection, "SELECT * FROM employees WHERE ID = $customerId");
 $customer = mysqli_fetch_assoc($customerQuery);
 ?>
 
@@ -100,7 +94,7 @@ $customer = mysqli_fetch_assoc($customerQuery);
 </style>
 
 <div class="edit-card">
-    <div class="card-header">Edit Customer</div>
+    <div class="card-header">Edit Employee</div>
 
     <form action="" method="POST">
         <div class="row mb-3">
@@ -110,61 +104,22 @@ $customer = mysqli_fetch_assoc($customerQuery);
             </div>
             <div class="col-md-6">
                 <label>Name</label>
-                <input type="text" name="fullName" class="form-control" value="<?= $customer['fullName']; ?>" required>
+                <input type="text" name="Name" class="form-control" value="<?= $customer['Name']; ?>" required>
             </div>
         </div>
 
         <div class="row mb-3">
             <div class="col-md-6">
-                <label>Age</label>
-                <input type="number" name="age" class="form-control" value="<?= $customer['age']; ?>" required>
+                <label>Department ID</label>
+                <input type="number" name="departmentId" class="form-control" value="<?= $customer['departmentId']; ?>" required>
             </div>
             <div class="col-md-6">
-                <label>Gender</label>
-                <select name="gender" class="form-control" required>
-                    <option value="" disabled selected>Select Gender</option>
-                    <option value="male" <?= $customer['gender'] === 'male' ? 'selected' : '' ?>>Male</option>
-                    <option value="female" <?= $customer['gender'] === 'female' ? 'selected' : '' ?>>Female</option>
-                </select>
+                <label>Salary</label>
+                <input type="number" name="Salary" class="form-control" value="<?= $customer['Salary']; ?>" required>
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label>Address</label>
-                <input type="text" name="address" class="form-control" value="<?= $customer['address']; ?>" required>
-            </div>
-            <div class="col-md-6">
-                <label>Phone</label>
-                <input type="tel" name="phone" class="form-control" value="<?= $customer['phone']; ?>" inputmode="numeric"
-                    pattern="^01[0125][0-9]{8}$" placeholder="Match this format : 01234567890" required>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-md-12">
-                <label>Password</label>
-                <div class="password-wrapper">
-                    <input type="password" name="password" id="passwordField" class="form-control"
-                        value="<?= $customer['password']; ?>" required>
-                    <i id="togglePassword" class="bi bi-eye"></i>
-                </div>
-            </div>
-        </div>
-
-        <button type="submit" class="submit-btn">Update Customer</button>
+        <button type="submit" class="submit-btn">Update Employee</button>
     </form>
 </div>
-
-<script>
-    const togglePassword = document.querySelector('#togglePassword');
-    const passwordField = document.querySelector('#passwordField');
-
-    togglePassword.addEventListener('click', function () {
-        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordField.setAttribute('type', type);
-        this.classList.toggle('bi-eye');
-        this.classList.toggle('bi-eye-slash');
-    });
-</script>
 </body>
