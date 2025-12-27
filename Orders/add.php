@@ -5,17 +5,14 @@ include_once "../Includes/header.php";
 $customerId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $fullName = $_POST['fullName'];
-    $age = intval($_POST['age']);
-    $gender = $_POST['gender'];
-    $address = $_POST['address'];
-    $phone = $_POST['phone'];
-    $password = $_POST['password'];
+    $customerId = intval($_POST['customerId']);
+    $productId = $_POST['productId'];
+    $productDate = $_POST['product_date'];
+    $amount = $_POST['amount'];
 
     $updateQuery = "
-        INSERT INTO `customer`(`fullName`, `address`, `phone`, `age`, `gender`, `password`) VALUES 
-        ('$fullName','$address','$phone',$age,'$gender','$password')
-    ";
+        INSERT INTO `orders`(`customerId`, `productId`, `product_date`, `amount`) VALUES 
+        ($customerId, $productId, '$productDate', $amount)";
 
     if (mysqli_query($connection, $updateQuery)) {
         echo '
@@ -27,9 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<div class='alert alert-danger text-center'>Error: " . mysqli_error($connection) . "</div>";
     }
 }
-
-$customerQuery = mysqli_query($connection, "SELECT * FROM customer WHERE ID = $customerId");
-$customer = mysqli_fetch_assoc($customerQuery);
 ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
@@ -94,65 +88,32 @@ $customer = mysqli_fetch_assoc($customerQuery);
 </style>
 
 <div class="edit-card">
-    <div class="card-header">Add Customer</div>
+    <div class="card-header">Add Order</div>
 
     <form action="" method="POST">
         <div class="row mb-3">
             <div class="col-md-6">
-                <label>Name</label>
-                <input type="text" name="fullName" class="form-control" required>
+                <label>Amount</label>
+                <input type="text" name="amount" class="form-control" required>
             </div>
             <div class="col-md-6">
-                <label>Age</label>
-                <input type="number" name="age" class="form-control" required>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-
-            <div class="col-md-6">
-                <label>Gender</label>
-                <select name="gender" class="form-control" required>
-                    <option value="" disabled selected>Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label>Address</label>
-                <input type="text" name="address" class="form-control" required>
+                <label>Date</label>
+                <input type="text" name="product_date" class="form-control" value="<?= date('Y-m-d'); ?>" required>
             </div>
         </div>
 
         <div class="row mb-3">
             <div class="col-md-6">
-                <label>Phone</label>
-                <input type="tel" name="phone" class="form-control" value=""
-                    pattern="^01[0125][0-9]{8}$" placeholder="Match this format : 01234567890" inputmode="numeric" required>
-
+                <label>Customer ID</label>
+                <input type="number" name="customerId" class="form-control" required>
             </div>
             <div class="col-md-6">
-                <label>Password</label>
-                <div class="password-wrapper">
-                    <input type="password" name="password" id="passwordField" class="form-control" required>
-                    <i id="togglePassword" class="bi bi-eye"></i>
-                </div>
+                <label>Product ID</label>
+                <input type="number" name="productId" class="form-control" required>
             </div>
         </div>
 
-        <button type="submit" class="submit-btn">Add Customer</button>
+        <button type="submit" class="submit-btn">Add Order</button>
     </form>
 </div>
-
-<script>
-    const togglePassword = document.querySelector('#togglePassword');
-    const passwordField = document.querySelector('#passwordField');
-
-    togglePassword.addEventListener('click', function () {
-        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordField.setAttribute('type', type);
-        this.classList.toggle('bi-eye');
-        this.classList.toggle('bi-eye-slash');
-    });
-</script>
 </body>

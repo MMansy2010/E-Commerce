@@ -28,8 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$customerQuery = mysqli_query($connection, "SELECT * FROM customer WHERE ID = $customerId");
-$customer = mysqli_fetch_assoc($customerQuery);
+
 ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
