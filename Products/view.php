@@ -2,14 +2,15 @@
 include_once "../Includes/vars.php";
 include_once "../Includes/header.php";
 
-$customerId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$customerQuery = mysqli_query($connection, "SELECT * FROM customer WHERE ID = $customerId");
-$customer = mysqli_fetch_assoc($customerQuery);
+$productId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$productQuery = mysqli_query($connection, "SELECT * FROM products WHERE ID = $productId");
+$product = mysqli_fetch_assoc($productQuery);
 ?>
 <style>
-    a{
+    a {
         text-decoration: none;
     }
+
     body {
         background-color: #f5f5f5;
     }
@@ -67,72 +68,38 @@ $customer = mysqli_fetch_assoc($customerQuery);
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="card cool-card" style="max-width: 420px; width: 100%;">
 
-        <!-- Header -->
         <div class="card-header text-center fw-semibold py-3">
-            Name : <?= $customer['fullName']; ?>
+            Name : <?= $product['Name']; ?>
         </div>
 
-        <!-- Body -->
         <div class="card-body px-4">
 
             <div class="info-row">
                 <span class="label">ID</span>
-                <span class="value"><?= $customer['ID']; ?></span>
+                <span class="value"><?= $product['ID']; ?></span>
             </div>
 
             <div class="info-row">
                 <span class="label">Name</span>
-                <span class="value"><?= $customer['fullName']; ?></span>
+                <span class="value"><?= $product['Name']; ?></span>
             </div>
 
             <div class="info-row">
-                <span class="label">Age</span>
-                <span class="value"><?= $customer['age']; ?></span>
+                <span class="label">Category</span>
+                <span class="value"><?= $product['Category']; ?></span>
             </div>
 
             <div class="info-row">
-                <span class="label">Gender</span>
-                <span class="value"><?= $customer['gender']; ?></span>
-            </div>
-
-            <div class="info-row">
-                <span class="label">Address</span>
-                <span class="value"><?= $customer['address']; ?></span>
-            </div>
-
-            <div class="info-row">
-                <span class="label">Phone</span>
-                <span class="value"><?= $customer['phone']; ?></span>
-            </div>
-
-            <div class="info-row">
-                <span class="label">Password</span>
-                <span class="value" style="display: flex; align-items: center;">
-                    <input type="password" id="passwordField" value="<?= $customer['password']; ?>" readonly
-       style="border: none; background: transparent; font-weight: 600; color: inherit; width: <?= strlen($customer['password']); ?>ch;">
-                    <i id="togglePassword" class="bi bi-eye" style="cursor: pointer; margin-left: 8px;"></i>
-                </span>
+                <span class="label">Price</span>
+                <span class="value"><?= $product['Price']; ?></span>
             </div>
 
 
             <div class="text-center mt-4">
-<a class="action-btn" href="edit.php?id=<?= $customer['ID']; ?>">Edit Profile</a>
+                <a class="action-btn" href="edit.php?id=<?= $product['ID']; ?>">Edit Product</a>
             </div>
 
         </div>
     </div>
 </div>
-<script>
-    const togglePassword = document.querySelector('#togglePassword');
-    const passwordField = document.querySelector('#passwordField');
-
-    togglePassword.addEventListener('click', function () {
-        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordField.setAttribute('type', type);
-
-        
-        this.classList.toggle('bi-eye');
-        this.classList.toggle('bi-eye-slash');
-    });
-</script>
 </body>

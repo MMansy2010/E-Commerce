@@ -5,11 +5,11 @@ session_start();
 if (isset($_GET['id'])) {
     $customerId = intval($_GET['id']);
 
-    $deleteQuery = "DELETE FROM customer WHERE ID = $customerId";
+    $deleteQuery = "DELETE FROM products WHERE ID = $customerId";
 
     if (mysqli_query($connection, $deleteQuery)) {
-        // set flash message
-        $_SESSION['success'] = "Customer deleted successfully.";
+
+        $_SESSION['success'] = "Product deleted successfully.";
 
         header("Location: index.php");
         exit();

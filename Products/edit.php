@@ -5,33 +5,23 @@ include_once "../Includes/header.php";
 $customerId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $fullName = $_POST['fullName'];
-    $age = intval($_POST['age']);
-    $gender = $_POST['gender'];
-    $address = $_POST['address'];
-    $phone = $_POST['phone'];
-    $password = $_POST['password'];
+    $Name = $_POST['Name'];
+    $price = intval($_POST['Price']);
+    $category = $_POST['Category'];
 
     $updateQuery = "
-        UPDATE customer SET
-            fullName = '$fullName',
-            age = $age,
-            gender = '$gender',
-            address = '$address',
-            phone = '$phone',
-            password = '$password'
-        WHERE ID = $customerId
+        UPDATE `products` SET `Name`='$Name',`Category`='$category',`Price`='$price' WHERE ID = $customerId
     ";
 
     if (mysqli_query($connection, $updateQuery)) {
-        echo "<div class='alert alert-success text-center'>Customer updated successfully.</div>";
+        echo "<div class='alert alert-success text-center'>Product updated successfully.</div>";
     } else {
         echo "<div class='alert alert-danger text-center'>Error: " . mysqli_error($connection) . "</div>";
     }
 }
 
-$customerQuery = mysqli_query($connection, "SELECT * FROM customer WHERE ID = $customerId");
-$customer = mysqli_fetch_assoc($customerQuery);
+$productQuery = mysqli_query($connection, "SELECT * FROM products WHERE ID = $customerId");
+$product = mysqli_fetch_assoc($productQuery);
 ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
@@ -96,71 +86,31 @@ $customer = mysqli_fetch_assoc($customerQuery);
 </style>
 
 <div class="edit-card">
-    <div class="card-header">Edit Customer</div>
+    <div class="card-header">Edit Product</div>
 
     <form action="" method="POST">
         <div class="row mb-3">
             <div class="col-md-6">
                 <label>ID</label>
-                <input type="text" name="ID" class="form-control" value="<?= $customer['ID']; ?>" readonly>
+                <input type="text" name="ID" class="form-control" value="<?= $product['ID']; ?>" readonly>
             </div>
             <div class="col-md-6">
                 <label>Name</label>
-                <input type="text" name="fullName" class="form-control" value="<?= $customer['fullName']; ?>" required>
+                <input type="text" name="Name" class="form-control" value="<?= $product['Name']; ?>" required>
             </div>
         </div>
 
         <div class="row mb-3">
             <div class="col-md-6">
-                <label>Age</label>
-                <input type="number" name="age" class="form-control" value="<?= $customer['age']; ?>" required>
+                <label>Price</label>
+                <input type="number" name="Price" class="form-control" value="<?= $product['Price']; ?>" required>
             </div>
             <div class="col-md-6">
-                <label>Gender</label>
-                <select name="gender" class="form-control" required>
-                    <option value="" disabled selected>Select Gender</option>
-                    <option value="male" <?= $customer['gender'] === 'male' ? 'selected' : '' ?>>Male</option>
-                    <option value="female" <?= $customer['gender'] === 'female' ? 'selected' : '' ?>>Female</option>
-                </select>
+                <label>Category</label>
+                <input type="text" name="Category" class="form-control" value="<?= $product['Category']; ?>" required>
             </div>
         </div>
-
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label>Address</label>
-                <input type="text" name="address" class="form-control" value="<?= $customer['address']; ?>" required>
-            </div>
-            <div class="col-md-6">
-                <label>Phone</label>
-                <input type="tel" name="phone" class="form-control" value="<?= $customer['phone']; ?>" inputmode="numeric"
-                    pattern="^01[0125][0-9]{8}$" placeholder="Match this format : 01234567890" required>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-md-12">
-                <label>Password</label>
-                <div class="password-wrapper">
-                    <input type="password" name="password" id="passwordField" class="form-control"
-                        value="<?= $customer['password']; ?>" required>
-                    <i id="togglePassword" class="bi bi-eye"></i>
-                </div>
-            </div>
-        </div>
-
-        <button type="submit" class="submit-btn">Update Customer</button>
+        <button type="submit" class="submit-btn" >Update Product</button>
     </form>
 </div>
-
-<script>
-    const togglePassword = document.querySelector('#togglePassword');
-    const passwordField = document.querySelector('#passwordField');
-
-    togglePassword.addEventListener('click', function () {
-        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordField.setAttribute('type', type);
-        this.classList.toggle('bi-eye');
-        this.classList.toggle('bi-eye-slash');
-    });
-</script>
 </body>
