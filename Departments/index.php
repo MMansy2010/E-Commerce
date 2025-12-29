@@ -1,25 +1,49 @@
 <?php
 include_once "../Includes/vars.php";
 
+$query = "SELECT * FROM department";
+$departments = mysqli_query($connection, $query);
 
-$departments = mysqli_query($connection, "SELECT * FROM department");
+if ($_GET && isset($_GET['search'])) {
+    $search = mysqli_real_escape_string($connection, $_GET['search']);
+    $filter = mysqli_real_escape_string($connection, $_GET['filter']);
+    $query = "SELECT * FROM department WHERE $filter LIKE '%$search%' ";
+    $departments = mysqli_query($connection, $query);
+}
 
 if (!$departments) {
     die("Query failed: " . mysqli_error($connection));
 }
 include_once "../Includes/header.php";
-session_start();
+        session_start();
 
-if (isset($_SESSION['success'])) {
-    echo '
+        if (isset($_SESSION['success'])) {
+            echo '
     <div class="alert alert-success alert-dismissible fade show text-center mt-3" role="alert">
         ' . $_SESSION['success'] . '
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>';
-    
-    unset($_SESSION['success']);
-}
+
+            unset($_SESSION['success']);
+        }
+
 ?>
+
+<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+  <form class="d-flex mx-auto mt-4 align-items-center" role="search" style="width:50%;" onsubmit="return validateFilter()">
+    <div class="dropdown me-2">
+      <button class="btn btn-secondary rounded-pill px-3 d-flex align-items-center" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false" required>
+        <i class="bi bi-filter me-2"></i> Filter
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+        <li><a class="dropdown-item" data-value="id">ID</a></li>
+        <li><a class="dropdown-item" data-value="name">Name</a></li>
+      </ul>
+      <input type="hidden" id="filterSelect" required>
+    </div>
+
+
+<?php include_once "../Includes/SearchBar.php"; ?>
 
 <div class="container mt-5">
 
