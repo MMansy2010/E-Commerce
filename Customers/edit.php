@@ -13,14 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     $updateQuery = "
-        UPDATE customer SET
-            fullName = '$fullName',
-            age = $age,
-            gender = '$gender',
-            address = '$address',
-            phone = '$phone',
-            password = '$password'
-        WHERE ID = $customerId
+        UPDATE `customer` SET `fullName`='$fullName',`address`='$address',`phone`='$phone',`age`='$age',`gender`='$gender',`password`='$password' WHERE ID = $customerId
     ";
 
     if (mysqli_query($connection, $updateQuery)) {
@@ -136,8 +129,7 @@ $customer = mysqli_fetch_assoc($customerQuery);
             </div>
             <div class="col-md-6">
                 <label>Phone</label>
-                <input type="tel" name="phone" class="form-control" value="<?= $customer['phone']; ?>" inputmode="numeric"
-                    pattern="^01[0125][0-9]{8}$" placeholder="Match this format : 01234567890" required>
+                <input type="tel" name="phone" class="form-control" value="<?= $customer['phone']; ?>" inputmode="numeric" placeholder="Match this format : 01234567890" required>
             </div>
         </div>
 
